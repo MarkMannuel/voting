@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Voting System</title>
+</head>
+<style>
+    body{
+        background-image: url("/static/1.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+    }
+    main{
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    @keyframes moveLeft{
+        0%{
+            margin-left: 100%;
+        }
+        100%{
+            margin-left: -100%;
+        }
+    }
+    h1{
+        white-space: nowrap;
+        animation: moveLeft 10s linear infinite;
+    }
+    footer{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        color:purple;
+        padding: 10px;
+        animation: moveLeft 10s linear infinite;
+        font-size: xx-large;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+    p{
+        text-align: center;
+        font-size: xx-large;
+        color: blue;
+    }
+    a{
+        text-align: center;
+        font-size: x-large;
+        color:green;
+
+    }
+    
+</style>
+<body>
+    <h1>Welcome to Laikipia University School Of Science Online Voting System</h1>
+    <p>Please login to proceed.</p>
+    <a href="{{ url_for('voter_login') }}">Voter Login</a><br>
+    <a href="{{ url_for('admin_login') }}">Admin Login</a><br>
+
+    <footer>Your vote, your choice. &#128578;&#128578;&#128578;</footer>
+</body>
+</html>

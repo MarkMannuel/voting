@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote</title>
+</head>
+<style>
+    .li{
+        font-size: xx-large;
+    }
+</style>
+<body>
+    {% if voter.approved and not voted%}
+    <h1>Vote for a Candidate</h1>
+    {% if success%}
+    <p style="color: green;">{{success}}</p>
+    {% endif %}
+
+    {% if error_message %}
+    <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+    <form action="{{url_for('vote')}}" method="post">
+        <ul>
+            {% for candidate in candidates %}
+            <li>
+                <input type="radio" id="candidate_{{candidate.id}}" name="candidate" value="{{candidate.id}}">
+                <label for="candidate_{{candidate.id}}">{{ candidate.name }}</label>
+            
+            </li>
+            {% endfor %}
+        </ul>
+        <input type="submit" value="Vote">
+    </form>
+    {% endif %}
+    
+    {% if voted %}
+      <p style="color: red;">You have already casted your vote.</p>
+    {% endif %}
+    <br>
+    <a href="{{url_for('logout')}}">Logout</a>
+    
+</body>
+</html>

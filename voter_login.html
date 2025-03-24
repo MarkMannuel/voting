@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Login</title>
+</head>
+<style>
+    body{
+        background-image: url("/static/1.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+    }
+    main{
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    @keyframes moveLeft{
+        0%{
+            margin-left: 100%;
+        }
+        100%{
+            margin-left: -100%;
+        }
+    }
+    h1{
+        white-space: nowrap;
+        animation: moveLeft 10s linear infinite;
+    }
+    footer{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        color:purple;
+        padding: 10px;
+        animation: moveLeft 10s linear infinite;
+        font-size: xx-large;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+    p{
+        text-align: center;
+        font-size: small;
+        color: blue;
+    }
+    a{
+        text-align: center;
+        font-size: small;
+        color:green;
+
+    }
+    form{
+        text-align: center;
+    }
+    h2{
+        text-align: center;
+    }
+    label{
+        display: inline;
+        margin-bottom:5px;
+        color: blue;
+        font-size: larger;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    input[type="text"],
+    input[type="password"]{
+         width: 30%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        border-color:green;
+    }
+    input[type="submit"]{
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: navy;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover{
+        background-color: black;
+    }
+    
+</style>
+<body>
+    <h1>Choose your Candidate wisely.&#128578;</h1>
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    
+    {% if logged_in %}
+    <!-- Voter has already logged in -->
+    {% if voted %}
+    <p style="color: red;">You have already casted your vote</p>
+    {% else %}
+    <!-- Voter can vote -->
+    <h2>Click the Candidate of your choice. &#x1F447;</h2>
+    <form action="{{ url_for('vote') }}" method="post">
+        <ul>
+            {% for candidate in candidates %}
+            <li>
+                <input type="radio" id="candidate_{{ candidate.id }}" name="candidate" value="{{ candidate.id }}">
+                <label for="candidate_{{ candidate.id }}">{{ candidate.name }}</label>
+            </li>
+            {% endfor %}
+        </ul>
+        <input type="submit" value="Vote">
+    </form>
+    {% endif%}
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+    {% else %}
+    <!-- Voter needs to log in -->
+    <form action="{{ url_for('voter_login') }}" method="post">
+        <label for="reg_number">Reg_number:</label><br>
+        <input type="text" id="reg_number" name="reg_number" required><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <input type="submit" value="Login">
+    </form>
+    <p>Don't have an account? <a href="{{ url_for('register_voter') }}">Register here</a>.</p>
+
+    {% endif %}
+</body>
+</html>

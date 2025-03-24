@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+<style>
+      body{
+        background-image: url("/static/1.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    @keyframes moveLeft{
+        0%{
+            margin-left: 100%;
+        }
+        100%{
+            margin-left: -100%;
+        }
+    }
+    h1{
+        white-space: nowrap;
+        animation: moveLeft 10s linear infinite;
+    }
+    p{
+        text-align: center;
+        font-size: xx-large;
+        color: tomato;
+    }
+    h2{
+        text-align: center;
+        color: green;
+    }
+    ul{
+        text-align: center;
+    }
+    li{
+        text-align: center;
+        color:green;
+    }
+    .admin{
+        text-align: center;
+    }
+    ul{
+        display: inline-block;
+        text-align: left;
+        padding-left: 0;
+    }
+    ul li{
+        list-style-position: inline;
+        color:yellow;
+    }
+    .log{
+        text-align: center;
+        text-decoration: red;
+        color:blue;
+    }
+   
+</style>
+<body>
+    <h1>Admin Dashboard</h1>
+    <p>Welcome, Admin!</p>
+    <h2>Pending Voter Registrations</h2>
+    <ul>
+        {% for voter in pending_voters %}
+            <li>{{ voter.reg_number}}<a href="{{ url_for('approve_registration', voter_id=voter.id) }}">Approve</a></li>
+        {% endfor %}
+        
+    </ul>
+    <h2>Admin Functions</h2>
+    <div class="admin">
+    <ul>
+        <li ><a style="color: white;" href="{{ url_for('votes_count') }}">View Vote Counts</a></li>
+        <li><a style="color: white;"  href="{{ url_for('register_candidate') }}">Register Candidate</a></li>
+    
+    </ul>
+</div>
+    <a  class="log" href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
